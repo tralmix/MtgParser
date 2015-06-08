@@ -24,10 +24,10 @@ namespace CardData
 
 		public string Loyalty { get; set; }
 
-		public List<CardType> Types { get; set; }
+		public ICollection<CardType> Types { get; set; }
 
-		public List<CardSubType> SubTypes { get; set; }
+		public ICollection<CardSubType> SubTypes { get; set; }
 
-		public List<CardSet> Sets { get; set; }
+		public ICollection<CardSet> Sets { get; set; }
 	}
 }

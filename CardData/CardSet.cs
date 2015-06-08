@@ -12,5 +12,7 @@ namespace CardData
 		public string Name { get; set; }
 
 		public int CardCount { get; set; }
+
+		public ICollection<Card> Cards { get; set; }
 	}
 }

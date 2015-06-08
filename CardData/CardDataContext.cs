@@ -56,13 +56,28 @@ namespace CardData
 				.HasMany(c => c.SubTypes);
 
 			modelBuilder.Entity<Card>()
-				.HasMany(c => c.Sets);
+				.HasMany(c => c.Sets)
+				.WithMany(s=>s.Cards);
 
 			modelBuilder.Entity<CardSet>()
 				.ToTable("Sets")
 				.HasKey(s => s.SetId)
 				.Property(s=>s.SetId)
 				.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+			modelBuilder.Entity<CardSet>()
+				.Property(s => s.Name)
+				.HasMaxLength(2048)
+				.IsRequired()
+				.IsUnicode(false);
+
+			modelBuilder.Entity<CardSet>()
+				.Property(s => s.CardCount)
+				.IsRequired();
+
+			modelBuilder.Entity<CardSet>()
+				.HasMany(s => s.Cards)
+				.WithMany(c => c.Sets);
 
 			modelBuilder.Entity<CardSubType>()
 				.ToTable("SubType")

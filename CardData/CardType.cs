@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CardData
 {
-    public class CardType
-    {
-	    public int Id { get; set; }
+	public class CardType
+	{
+		public int Id { get; set; }
 
 		public string Name { get; set; }
-    }
+	}
 }
