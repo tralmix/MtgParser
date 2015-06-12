@@ -4,9 +4,9 @@
 	{
 		static void Main(string[] args)
 		{
-			SiteParser.GetSetsFromRootPage();
+			SiteParser.PopulateSetsFromRootPage();
 
-
+			SiteParser.PopulateCardsForEachSet();
 		}
 	}
 }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CardData
 {
@@ -17,43 +12,58 @@ namespace CardData
 
 		public virtual IDbSet<Card> Cards { get; set; }
 
-		public virtual IDbSet<CardSet> Sets { get; set; } 
+		public virtual IDbSet<CardSet> Sets { get; set; }
 
 		public virtual IDbSet<CardType> Types { get; set; }
 
-		public virtual IDbSet<CardSubType> SubTypes { get; set; }
+		public virtual IDbSet<ManaSymbol> ManaSymbols { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Card>()
 				.ToTable("Cards")
-				.HasKey(c => c.Id)
-				.Property(c=>c.Id)
+				.HasKey(c => c.CardId)
+				.Property(c=>c.CardId)
 				.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
 			modelBuilder.Entity<Card>()
 				.Property(c => c.MultiverseId);
 
 			modelBuilder.Entity<Card>()
-				.Property(c => c.Name);
+				.Property(c => c.Name)
+				.HasMaxLength(256)
+				.IsUnicode(false);
 
 			modelBuilder.Entity<Card>()
-				.Property(c => c.OracleText);
+				.Property(c => c.ManaCost)
+				.HasMaxLength(30)
+				.IsUnicode(false);
 
 			modelBuilder.Entity<Card>()
-				.Property(c => c.Power);
+				.Property(c => c.ConvertedManaCost);
 
 			modelBuilder.Entity<Card>()
-				.Property(c => c.Toughness);
+				.Property(c => c.OracleText)
+				.HasMaxLength(2048)
+				.IsUnicode(false);
 
 			modelBuilder.Entity<Card>()
-				.Property(c => c.Loyalty);
+				.Property(c => c.Power)
+				.HasMaxLength(10)
+				.IsUnicode(false);
+
+			modelBuilder.Entity<Card>()
+				.Property(c => c.Toughness)
+				.HasMaxLength(10)
+				.IsUnicode(false);
+
+			modelBuilder.Entity<Card>()
+				.Property(c => c.Loyalty)
+				.HasMaxLength(10)
+				.IsUnicode(false);
 
 			modelBuilder.Entity<Card>()
 				.HasMany(c => c.Types);
-
-			modelBuilder.Entity<Card>()
-				.HasMany(c => c.SubTypes);
 
 			modelBuilder.Entity<Card>()
 				.HasMany(c => c.Sets)
@@ -79,11 +89,46 @@ namespace CardData
 				.HasMany(s => s.Cards)
 				.WithMany(c => c.Sets);
 
-			modelBuilder.Entity<CardSubType>()
-				.ToTable("SubType")
-				.HasKey(s => s.Id)
-				.Property(s => s.Id)
+			modelBuilder.Entity<CardType>()
+				.ToTable("Types")
+				.HasKey(s => s.TypeId)
+				.Property(s => s.TypeId)
 				.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+			modelBuilder.Entity<CardType>()
+				.Property(t => t.Name)
+				.HasMaxLength(20)
+				.IsUnicode(false)
+				.IsRequired();
+
+			modelBuilder.Entity<CardType>()
+				.Property(t => t.IsSubType)
+				.IsRequired();
+
+			modelBuilder.Entity<ManaSymbol>()
+				.ToTable("ManaSymbols")
+				.HasKey(s => s.ManaSymbolId)
+				.Property(ms => ms.ManaSymbolId)
+				.HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+			modelBuilder.Entity<ManaSymbol>()
+				.Property(t => t.Name)
+				.HasMaxLength(20)
+				.IsUnicode(false)
+				.IsRequired();
+
+			modelBuilder.Entity<ManaSymbol>()
+				.Property(t => t.AltText)
+				.HasMaxLength(40)
+				.IsUnicode(false)
+				.IsRequired();
+
+			modelBuilder.Entity<ManaSymbol>()
+				.Property(ms => ms.Ordinal);
+
+			modelBuilder.Entity<ManaSymbol>()
+				.Property(ms => ms.ImageLocation)
+				.IsUnicode(false);
 
 			base.OnModelCreating(modelBuilder);
 		}

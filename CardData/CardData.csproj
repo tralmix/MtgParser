@@ -53,6 +53,7 @@
     <Compile Include="CardSet.cs" />
     <Compile Include="CardSubType.cs" />
     <Compile Include="CardType.cs" />
+    <Compile Include="ManaSymbol.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

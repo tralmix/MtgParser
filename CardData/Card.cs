@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CardData
 {
 	public class Card
 	{
-		public long Id { get; set; }
+		public long CardId { get; set; }
 
 		public long MultiverseId { get; set; }
 
 		public string Name { get; set; }
+
+		public string ManaCost { get; set; }
+
+		public int ConvertedManaCost { get; set; }
 
 		public string OracleText { get; set; }
 
@@ -24,10 +24,8 @@ namespace CardData
 
 		public string Loyalty { get; set; }
 
-		public ICollection<CardType> Types { get; set; }
+		public virtual ICollection<CardType> Types { get; set; }
 
-		public ICollection<CardSubType> SubTypes { get; set; }
-
-		public ICollection<CardSet> Sets { get; set; }
+		public virtual ICollection<CardSet> Sets { get; set; }
 	}
 }

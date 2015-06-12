@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace CardData
 {
@@ -13,6 +10,8 @@ namespace CardData
 
 		public int CardCount { get; set; }
 
-		public ICollection<Card> Cards { get; set; }
+		public bool SetPopulated { get; set; }
+
+		public virtual ICollection<Card> Cards { get; set; }
 	}
 }
